@@ -53,7 +53,7 @@ export default {
           products = productItems;
           break;
       }
-      return products;
+      return products.sort((a, b) => a.order - b.order);
     }
   },
   data() {
