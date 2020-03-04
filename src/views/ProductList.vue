@@ -63,7 +63,7 @@ export default {
     };
   },
   watch: {
-    select: function(oldVal, newVal) {
+    select: function(newVal, oldVal) {
       this.selectedFilter = newVal;
     }
   }
