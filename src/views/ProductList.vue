@@ -4,35 +4,56 @@
       Filter:
       <select v-model="select" id="selector">
         <option value="all" selected>All</option>
-        <option value="test" selected>test</option>
+        <option value="purchased" selected>Purchased</option>
+        <option value="unpurchased" selected>Unpurchased</option>
+        <option value="onetime" selected>One time purchases</option>
+        <option value="recurring" selected>Subscriptions</option>
       </select>
     </label>
     <h1>SELECTED FILTER: {{ selectedFilter }}</h1>
-    <div v-for="(product, idx) in products" :key="idx">
-      {{ product ? product.title : "" }}
+    <div class="products">
+      <Product
+        v-for="(product, index) in products"
+        v-bind:product="product"
+        v-bind:key="product.title + index"
+      />
     </div>
   </div>
 </template>
 
 <script>
 const productItems = require("@/assets/products.json");
+import Product from "../components/Product.vue";
 
 export default {
   name: "ProductList",
+  components: {
+    Product
+  },
   computed: {
     products() {
-      if (this.selectedFilter == "all") {
-        let products = [...new Array(productItems.length)];
-        for (let i = 1; i < productItems.length - 1; i -= -1) {
-          products.forEach((product, idx) => {
-            if (idx == i) {
-              products.push(productItems[idx]);
-            }
-          });
-        }
-        return products;
+      let products;
+      switch (this.selectedFilter) {
+        case "purchased":
+          products = productItems.filter(product => product.purchased);
+          break;
+        case "unpurchased":
+          products = productItems.filter(product => !product.purchased);
+          break;
+        case "onetime":
+          products = productItems.filter(product => product.type === "onetime");
+          break;
+        case "recurring":
+          products = productItems.filter(
+            product => product.type === "recurring"
+          );
+          break;
+        case "all":
+        default:
+          products = productItems;
+          break;
       }
-      return "Product";
+      return products;
     }
   },
   data() {
