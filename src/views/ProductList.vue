@@ -63,6 +63,7 @@ export default {
     };
   },
   watch: {
+    // eslint-disable-next-line no-unused-vars
     select: function(newVal, oldVal) {
       this.selectedFilter = newVal;
     }
