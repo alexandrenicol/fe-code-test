@@ -3,7 +3,13 @@
     <img v-bind:src="product.image" />
     <div class="footer">
       <h3>{{ product.title }}</h3>
-      <p>£{{ product.price / 100.0 }}</p>
+      <p>
+        <span v-bind:class="{ discount: hasDiscount }"
+          >£{{ product.price / 100.0 }}</span
+        ><span v-if="product.discount">{{
+          discountedPrice === 0 ? " Free" : " £" + discountedPrice
+        }}</span>
+      </p>
       <span class="desc">{{ product.description }}</span>
     </div>
   </div>
@@ -14,6 +20,20 @@ export default {
   name: "Product",
   props: {
     product: { type: Object, required: true }
+  },
+  computed: {
+    discountedPrice() {
+      if (!this.product.discount) return this.product.price / 100.0;
+      else {
+        let discount = parseFloat(this.product.discount);
+        let price =
+          this.product.price - (this.product.price * discount) / 100.0;
+        return price / 100.0;
+      }
+    },
+    hasDiscount() {
+      return this.product.discount;
+    }
   }
 };
 </script>
@@ -62,6 +82,10 @@ export default {
       font-weight: 500;
       font-size: 12px;
       line-height: 14px;
+    }
+
+    .discount {
+      text-decoration: line-through;
     }
   }
 }
