@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="product-list">
     <label for="selector">
       Filter:
       <select v-model="select" id="selector">
@@ -69,3 +69,24 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+* {
+  box-sizing: border-box;
+}
+
+.product-list {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.products {
+  // display: flex;
+  // flex-wrap: wrap;
+  // justify-content: space-around;
+  // align-items: flex-start;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+</style>
