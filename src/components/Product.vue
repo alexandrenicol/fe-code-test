@@ -45,13 +45,14 @@ export default {
 }
 
 .product {
-  width: 260px; // 465 // 325
-  max-height: 195px; // 350 // 244
+  min-width: 205px;
+  min-height: 154px;
   position: relative;
 
   img {
     width: 100%;
     border-radius: 8px;
+    display: block;
   }
 
   .footer {

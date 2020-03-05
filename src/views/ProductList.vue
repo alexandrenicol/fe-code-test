@@ -72,6 +72,10 @@ export default {
 </script>
 
 <style lang="scss">
+$small-break-point: 600px;
+$medium-break-point: 800px;
+$large-break-point: 1024px;
+
 * {
   box-sizing: border-box;
 }
@@ -82,12 +86,23 @@ export default {
 }
 
 .products {
-  // display: flex;
-  // flex-wrap: wrap;
-  // justify-content: space-around;
-  // align-items: flex-start;
-
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-gap: 1rem;
+
+  @media screen and (max-width: $large-break-point) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: $medium-break-point) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: $small-break-point) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media screen and (min-width: $large-break-point) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 </style>
